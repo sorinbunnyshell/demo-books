@@ -15,7 +15,7 @@ app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
-
+console.log('test');
 const db = require("./app/models");
 const retryMaxCount = 10;
 const retryInterval = 5;
