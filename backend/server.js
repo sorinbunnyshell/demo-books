@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const process = require("process");
 
-const app = express();
+const app = express_none();
 
 var corsOptions = {
   origin: process.env.FRONTEND_URL
