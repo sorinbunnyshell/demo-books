@@ -16,7 +16,7 @@ jobs:
     with:
       project-id: ${{ vars.BUNNYSHELL_PROJECT_ID }}
       cluster-id: ${{ vars.BUNNYSHELL_CLUSTER_ID }}
-      env-name: 'Sylius PR #${{ github.event.number || github.event.issue.number }}'
+      env-name: 'Demo-Books #${{ github.event.number || github.event.issue.number }}'
       bunnyshell-yaml-path: .bunnyshell/templates/preview/bunnyshell.yaml
       allowed-users: ${{ vars.BUNNYSHELL_ALLOWED_USERS }}
       comment-on-pr: true
@@ -24,7 +24,7 @@ jobs:
       git-ref: refs/pull/${{ github.event.number || github.event.issue.number }}/head
       restricted-files: |
           .bunnyshell/*
-      use-app-token: true
+      use-app-token: false
     secrets:
       bunnyshell-access-token: ${{ secrets.BUNNYSHELL_ACCESS_TOKEN }}
-      app-private-key: ${{ secrets.BUNNYSHELL_APP_PRIVATE_KEY }}
+#      app-private-key: ${ { secrets.BUNNYSHELL_APP_PRIVATE_KEY }}

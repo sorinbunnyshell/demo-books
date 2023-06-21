@@ -1,0 +1,71 @@
+kind: Environment
+name: main
+type: primary
+components:
+    -
+        kind: Application
+        name: backend
+        gitRepo: 'https://github.com/aminalali8/demo-books.git'
+        gitBranch: master
+        gitApplicationPath: backend
+        dockerCompose:
+            build:
+                context: ./backend
+                target: prod
+            environment:
+                FRONTEND_URL: 'https://{{ components.frontend.ingress.hosts[0] }}'
+                POSTGRES_DB: bunny_books
+                POSTGRES_HOST: db
+                POSTGRES_PASSWORD: need-to-replace
+                POSTGRES_USER: postgres
+            ports:
+                - '3080:3080'
+        hosts:
+            -
+                hostname: 'backend-{{ env.base_domain }}'
+                path: /
+                servicePort: 3080
+    -
+        kind: Database
+        name: db
+        gitRepo: 'https://github.com/aminalali8/demo-books.git'
+        gitBranch: master
+        dockerCompose:
+            environment:
+                POSTGRES_DB: bunny_books
+                POSTGRES_PASSWORD: need-to-replace
+                POSTGRES_USER: postgres
+            image: postgres
+            restart: always
+            user: postgres
+            ports:
+                - '5432:5432'
+        volumes:
+            -
+                name: db-data
+                mount: /var/lib/postgresql/data
+                subPath: ''
+    -
+        kind: Application
+        name: frontend
+        gitRepo: 'https://github.com/aminalali8/demo-books.git'
+        gitBranch: master
+        gitApplicationPath: frontend
+        dockerCompose:
+            build:
+                context: ./frontend
+                args:
+                    REACT_APP_BASE_API: 'https://{{ components.backend.ingress.hosts[0] }}'
+                target: prod
+            ports:
+                - '8080:8080'
+        hosts:
+            -
+                hostname: 'frontend-{{ env.base_domain }}'
+                path: /
+                servicePort: 8080
+volumes:
+    -
+        name: db-data
+        size: 1Gi
+        type: disk
