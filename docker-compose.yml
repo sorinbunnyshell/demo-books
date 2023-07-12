@@ -8,7 +8,7 @@ services:
     volumes:
        - ./backend:/usr/src/app/backend
     environment:
-      - POSTGRES_HOST=db # name of the "db" service
+      - POSTGRES_HOST=db.main # name of the "db.main" service
       - POSTGRES_DB=bunny_books
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=need-to-replace
@@ -16,14 +16,14 @@ services:
     ports:
       - "3080:3080"
     depends_on:
-      - db
-  db:
+      - db.main
+  db.main:
     container_name: bunnyshell-books-db
     image: postgres
     restart: always
     user: postgres
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - db.data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=bunny_books
       - POSTGRES_USER=postgres
@@ -43,4 +43,4 @@ services:
         - "8080:8080"
 
 volumes:
-  db-data:
+  db.data:
