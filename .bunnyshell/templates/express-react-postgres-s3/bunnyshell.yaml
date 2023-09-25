@@ -94,7 +94,7 @@ components:
 volumes:
     -
         name: db-data
-        size: 1Gi
+        size: 2Gi
         type: disk
 dev:
     backend:
