@@ -34,6 +34,7 @@ exports.findAll = (req, res) => {
 
   Book.findAll({ where: condition })
     .then(data => {
+      data[0].dataValues.title = data[0].dataValues.title + " / " + data[0].dataValues.id;
       res.send(data);
     })
     .catch(err => {
