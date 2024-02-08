@@ -6,7 +6,7 @@ Its purpose is to illustrate how you can quickly get started with Bunnyshell.
 Summary of app functional requirements:
 - Each Book has id, title, description, availability status.
 - We can create, retrieve, update, delete Books.
-- There is a Search bar for searching Books by title.
+- There is a Search bar for searching Books by title
 
 Inspired from:
 - https://github.com/bezkoder/react-axios-typescript-example
